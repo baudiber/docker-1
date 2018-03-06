@@ -1,1 +1,3 @@
-docker run --name Abathur python:2-slim
+docker-machine ssh Char && mkdir abathur_data && exit
+cp ~/42/docker-1/00_how_to_docker/app.py ~/
+docker run --name Abathur -p 3000:3000 -v /python:2-slim
