@@ -1,0 +1,32 @@
+## DOCKER STARTUP
+docker-machine start Char
+docker-machine env Char
+eval $(docker-machine env Char)
+
+## List Docker CLI commands
+docker
+docker container --help
+
+## DL docker image
+docker pull <image>
+
+## Display Docker version and info
+docker --version
+docker version
+docker info
+
+## Excecute Docker image
+docker run hello-world
+
+## List Docker images
+docker image ls
+
+## List Docker containers (running, all, all in quiet mode)
+docker container ls
+docker container ls -all
+docker container ls -a -q
+
+##alpine or debian lauch to terminal
+docker run -it <alpine> /bin/sh
+detaching from it : ^P ^Q
+detaching and closing it : exit  //  ^D
