@@ -1,3 +1,4 @@
-docker-machine ssh Char && mkdir abathur_data && exit
+docker-machine mount Char:/Users/baudiber/42/docker-1/ docker-1
 cp ~/42/docker-1/00_how_to_docker/app.py ~/
 docker run --name Abathur -p 3000:3000 -v /python:2-slim
+docker run -it --name Abathur -p 3000:3000 -v  /Users/baudiber:/home/abathur_data python:2-slim
