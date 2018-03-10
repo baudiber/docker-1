@@ -8,8 +8,7 @@
 # Description: Teamspeak 3 Server
 ### END INIT INFO
 
-USER="teamspeak"
-DIR="/home/teamspeak/teamspeak3-server_linux-x86"
+DIR="home/TS3/teamspeak3-server_linux_amd64"
 ###### Teamspeak 3 server start/stop script ######
 case "$1" in
 start)

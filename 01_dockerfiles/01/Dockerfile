@@ -1,23 +1,15 @@
-FROM debian
+FROM 		debian
 
-MAINTAINER baudiber <baudiber@student.42.fr>
+MAINTAINER 	baudiber <baudiber@student.42.fr>
 
-EXPOSE 9987
-EXPOSE 30033
-EXPOSE 10011
+EXPOSE 		9987/udp 30033 10011
 
-#ADD requirements.sh /
-ADD script /etc/init.d/teamspeak
+WORKDIR 	/home/TS3
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y wget && \
-		adduser --disabled-password --gecos "" teamspeak && \
-		cd /home/teamspeak && echo $(pwd) && \
-		wget http://dl.4players.de/ts/releases/3.0.11.1/teamspeak3-server_linux-x86-3.0.11.1.tar.gz && \
-		tar -xzvf *.tar.gz && rm *.tar.gz && \
-		cd / 
+RUN 		apt-get update && apt-get upgrade -y && apt-get install -y wget bzip2 && \
+		wget http://dl.4players.de/ts/releases/3.0.13.8/teamspeak3-server_linux_amd64-3.0.13.8.tar.bz2 && \
+		tar xfvj *.tar.bz2 && rm *.tar.bz2 
 
-RUN chmod 700 /etc/init.d/teamspeak && \
-		update-rc.d teamspeak defaults && \
-		service teamspeak start > logs.txt
+WORKDIR 	teamspeak3-server_linux_amd64/
 
-
+ENTRYPOINT ["sh", "ts3server_minimal_runscript.sh", "createinitfile=1"]
