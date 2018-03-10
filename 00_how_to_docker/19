@@ -1,4 +1,1 @@
-docker-machine mount Char:/Users/baudiber/42/docker-1/ docker-1
-cp ~/42/docker-1/00_how_to_docker/app.py ~/
-docker run --name Abathur -p 3000:3000 -v /python:2-slim
-docker run -it --name Abathur -p 3000:3000 -v  /Users/baudiber:/home/abathur_data python:2-slim
+docker run -it --name Abathur -p 3000:3000 -e FLASK_APP=app.py -v /Users/baudiber/42/docker-1/flask:/root -w /root python:2-slim bash -c "pip install Flask && flask run --host=0.0.0.0 --port=3000"
