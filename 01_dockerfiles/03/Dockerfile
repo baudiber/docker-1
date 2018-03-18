@@ -1,4 +1,6 @@
 FROM ubuntu:14.04
+#FROM ubuntu-upstart
+
 MAINTAINER Sytse Sijbrandij
 
 # Install required packages
