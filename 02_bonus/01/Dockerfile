@@ -10,7 +10,8 @@ RUN		apt-get update && apt-get upgrade -y && \
 			libtool \
 			clang \
 			gcc \
-			make
+			make \
+			vim
 
 RUN		git clone https://github.com/json-c/json-c.git 
 WORKDIR	json-c
@@ -20,6 +21,6 @@ RUN		sh autogen.sh
 RUN		./configure 
 RUN		make	
 RUN		make install
+WORKDIR /usr/local/lib/
+RUN		rm libjson-c.so.4 libjson-c.so.4.0.0
 WORKDIR /
-
-
