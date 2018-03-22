@@ -2,7 +2,8 @@ FROM	debian
 
 EXPOSE	5432 5431
 EXPOSE	6379
-EXPOSE	22/tcp 80/tcp 443/tcp
+EXPOSE	22 80/tcp 
+EXPOSE	10022
 
 RUN		apt-get update && apt-get upgrade -y && \
 		apt-get install -y sudo \
@@ -116,4 +117,13 @@ RUN		sudo sed -i 's/YOUR_SERVER_FQDN/gitlab.baudiber.com/' /etc/nginx/sites-avai
 RUN		sed -i -e '30,62d' /etc/nginx/sites-available/gitlab 
 RUN 	sed -i '51s+gitlab_access;+;+' /etc/nginx/sites-available/gitlab
 RUN		sudo nginx -t
-CMD		["/bin/bash", "-c", "sudo service nginx restart; service postgresql restart; service redis-server restart; sudo service gitlab start; tail -f /dev/null"]
+
+RUN sed -i '582s/# ssh_port: 22/ssh_port: 30022/' /home/git/gitlab/config/gitlab.yml && \
+		    mkdir /run/sshd
+
+ADD config /home/git/.ssh/
+
+CMD /usr/sbin/sshd && service postgresql start && service redis-server start && service gitlab start && service nginx start && bash
+
+EXPOSE 80
+EXPOSE 30022
