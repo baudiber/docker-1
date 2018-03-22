@@ -106,11 +106,14 @@ RUN		service postgresql restart && sudo -u git -H bundle exec rake gitlab:env:in
 RUN		sudo -u git -H bundle exec rake gettext:compile RAILS_ENV=production
 RUN		apt-get update && apt-get install -y nodejs
 RUN		sudo -u git -H yarn install --production --pure-lockfile 
-#RUN		npm i -g npm
-#RUN		npm i -g n
-RUN		sudo -u git -H bundle exec rake gitlab:assets:compile cache:clear gitlab:assets:clean RAILS_ENV=production NODE_ENV=production --trace
-RUN		sudo service gitlab start
-RUN		sudo apt-get install -y nginx
+RUN		sudo -u git -H bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production
+RUN		service postgresql restart && service redis-server restart && sudo service gitlab start
+RUN		apt-get update && apt-get install -y nginx-full
+RUN		rm /etc/nginx/sites-enabled/default
 RUN		sudo cp lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab && \
 		sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
-
+RUN		sudo sed -i 's/YOUR_SERVER_FQDN/gitlab.baudiber.com/' /etc/nginx/sites-available/gitlab 
+RUN		sed -i -e '30,62d' /etc/nginx/sites-available/gitlab 
+RUN 	sed -i '51s+gitlab_access;+;+' /etc/nginx/sites-available/gitlab
+RUN		sudo nginx -t
+CMD		["/bin/bash", "-c", "sudo service nginx restart; service postgresql restart; service redis-server restart; sudo service gitlab start; tail -f /dev/null"]
