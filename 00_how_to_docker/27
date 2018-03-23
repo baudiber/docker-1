@@ -1,1 +1,1 @@
-docker service logs -t --follow engineerin-bay 
+docker service logs -t --follow engineering-bay 
