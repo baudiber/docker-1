@@ -1,4 +1,0 @@
-host sais_tu_danser_la_carioca            # Give your setup a name (here: override localhost)
-	user git        	   # Your remote git user
-	port 30022       	  # Your port number
-    hostname 127.0.0.1;	 # Your server name or IP
