@@ -1,4 +1,10 @@
-# docker-1
+# docker-1 (42 subject)
+
+This subject was made to learn how to use the basics (and more) of docker
+
+# These answers no longer are up to date
+
+
 
 cd <exo"
 docker build -t"<exo>"
